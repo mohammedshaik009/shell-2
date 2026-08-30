@@ -49,9 +49,9 @@ VALIDATE $? "creating directory"
 rm -rf /tmp/catalogue.zip
 VALIDATE $? "removed catalogue.zip"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
-cd /app 
-unzip /tmp/catalogue.zip
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>> $LOGS_FILE
+cd /app  &>> $LOGS_FILE
+unzip /tmp/catalogue.zip &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted catalogue code"
 
 npm install &>> $LOGS_FILE
