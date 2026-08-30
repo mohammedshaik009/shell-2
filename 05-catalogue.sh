@@ -70,7 +70,7 @@ VALIDATE $? "installing MongoDB"
 
 INDEX=$(mongosh --host mongodb.mohammed.world --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ "$INDEX" -lt 0 ]; then
-    mongosh --host mongodb.mohammed.world </app/db/master-data.js
+    mongosh --host mongodb.mohammed.world </app/db/master-data.js &>> $LOGS_FILE
     VALIDATE $? "Load products"
 else
     echo -e "Products already loaded ...$Y SKIPPING $N"
