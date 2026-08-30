@@ -28,16 +28,16 @@ VALIDATE() {
 }
 
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
-VALIDATE "Adding rabbitmq.repo"
+VALIDATE $? "Adding rabbitmq.repo"
 
 dnf install rabbitmq-server -y &>> $LOGS_FILE
-VALIDATE "installing Rabbitmq"
+VALIDATE $? "installing Rabbitmq"
 
 systemctl enable --now rabbitmq &>> $LOGS_FIL
-VALIDATE "starting and enabling"
+VALIDATE $? "starting and enabling"
 
 rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FIL
-VALIDATE "Setting up user"
+VALIDATE $? "Setting up user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>> $LOGS_FILE
 VALIDATE $? "setting up password"
