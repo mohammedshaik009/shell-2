@@ -36,9 +36,9 @@ VALIDATE $? "installing nodejs"
 id roboshop  &>> $LOGS_FILE
 if [ $? -ne 0 ]
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    VALIDATE $? "creating system user"
+    VALIDATE $? "setting up system user"
 else
-    echo -e "system user is already created ...$Y SKIPPING $N"
+    echo -e "system user roboshop already created ...$Y SKIPPING $N"
 fi
 
 rm -rf /app 
