@@ -70,9 +70,13 @@ VALIDATE $? "installing MongoDB"
 
 INDEX=$(mongosh --host mongodb.mohammed.world --eval 'db.getMongo().getDBNames().indexof("catalogue")')
 
-if [ INDEX -lt 0 ]; then
+if [ $INDEX -lt 0 ]; then
     mongosh --host mongodb.mohammed.world </app/db/master-data.js
     VALIDATE $? "Load products"
 else
-    echo "Products already loaded ...$Y SKIPPING $N"
+    echo -e "Products already loaded ...$Y SKIPPING $N"
 fi
+
+systemctl enable catalogue &>> $LOGS_FILE
+systemctl restart catalogue &>> $LOGS_FILE
+VALIDATE $? "Restarting catalogue"
