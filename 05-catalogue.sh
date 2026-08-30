@@ -70,7 +70,7 @@ VALIDATE $? "installing MongoDB"
 
 INDEX=$(mongosh --host mongodb.mohammed.world --eval 'db.getMongo().getDBNames().indexof("catalogue")')
 
-if [ $INDEX -lt 0 ]; then
+if [ $INDEX -1t 0 ]; then
     mongosh --host mongodb.mohammed.world </app/db/master-data.js
     VALIDATE $? "Load products"
 else
