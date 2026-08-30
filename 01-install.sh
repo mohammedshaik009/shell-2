@@ -4,6 +4,7 @@ AMI_ID="0220d79f3f480ecf5"
 ZONE_ID="Z083970011QGFE38SJQH9"
 DOMAIN_NAME=mohammed.world
 
+for instance in $@
 echo "installing instance:$instance"
 INSTANCE_ID=$(aws ec2 run-instances \
         --image-id ami-0220d79f3f480ecf5 \
@@ -53,5 +54,3 @@ echo "INSTANCE_ID:$INSTANCE_ID"
         }
     '
 done
-
-        
