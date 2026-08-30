@@ -45,7 +45,7 @@ rm -rf /app
 VALIDATE $? "removing existing code"
 
 mkdir -p /app &>> $LOGS_FILE
-VALIDATE "creating app directory"
+VALIDATE $? "creating app directory"
 
 rm -rf /tmp/catalogue.zip  &>> $LOGS_FILE
 VALIDATE $? "removing catalogue.zip"
