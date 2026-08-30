@@ -33,10 +33,10 @@ VALIDATE $? "Adding rabbitmq.repo"
 dnf install rabbitmq-server -y &>> $LOGS_FILE
 VALIDATE $? "installing Rabbitmq"
 
-systemctl enable --now rabbitmq-server &>> $LOGS_FIL
+systemctl enable --now rabbitmq-server &>> $LOGS_FILE
 VALIDATE $? "starting and enabling"
 
-rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FIL
+rabbitmqctl add_user roboshop roboshop123 &>> $LOGS_FILE
 VALIDATE $? "creating Rabbitmq user"
 
 rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"   &>> $LOGS_FILE
