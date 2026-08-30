@@ -50,7 +50,7 @@ VALIDATE "creating app directory"
 rm -rf /tmp/catalogue.zip  &>> $LOGS_FILE
 VALIDATE $? "removing catalogue.zip"
 
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
+curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip  &>> $LOGS_FILE
 cd /app 
 unzip /tmp/catalogue.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted catalogue code"
