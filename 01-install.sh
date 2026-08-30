@@ -5,8 +5,9 @@ ZONE_ID="Z083970011QGFE38SJQH9"
 DOMAIN_NAME=mohammed.world
 
 for instance in $@
-echo "installing instance:$instance"
-INSTANCE_ID=$(aws ec2 run-instances \
+do
+    echo "installing instance:$instance"
+    INSTANCE_ID=$(aws ec2 run-instances \
         --image-id ami-0220d79f3f480ecf5 \
         --instance-type t3.micro \
         --security-groups "roboshop-common" "roboshop-$instance" \
