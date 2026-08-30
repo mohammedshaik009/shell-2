@@ -47,7 +47,7 @@ VALIDATE $? "removing existing code"
 mkdir -p /app &>> $LOGS_FILE
 VALIDATE "creating app directory"
 
-rm -rf /tmp/catalogue.zip
+rm -rf /tmp/catalogue.zip  &>> $LOGS_FILE
 VALIDATE $? "removing catalogue.zip"
 
 curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue-v3.zip 
