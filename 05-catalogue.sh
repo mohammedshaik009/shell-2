@@ -58,6 +58,6 @@ VALIDATE $? "downloaded and extracted catalogue code"
 npm install &>> $LOGS_FILE
 VALIDATE $? "installing dependencies"
 
-cp $SCRIPT_DIR /catalogue.service /etc/systemd/system/catalogue.service
+cp $SCRIPT_DIR/catalogue.service /etc/systemd/system/catalogue.service
 VALIDATE $? "created systemctl service"
 
