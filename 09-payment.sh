@@ -58,10 +58,10 @@ VALIDATE $? "creating directory"
 
 curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  &>> $LOGS_FILE
 cd /app 
-unzip /tmp/payment.zip
+unzip /tmp/payment.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted code"
 
-pip3 install &>> $LOGS_FILE
+pip3 install -r &>> $LOGS_FILE
 VALIDATE $? "installing dependencies"
 
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
