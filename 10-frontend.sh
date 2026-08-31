@@ -36,6 +36,7 @@ VALIDATE $? "installing nginx"
 rm -rf /usr/share/nginx/html/*  &>> $LOGS_FILE
 VALIDATE $? "removing existing code"
 
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>> $LOGS_FILE
 cd /usr/share/nginx/html 
 unzip /tmp/frontend.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted code"
