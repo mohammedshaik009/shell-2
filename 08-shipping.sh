@@ -66,10 +66,9 @@ cd /app
 unzip /tmp/shipping.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted cart code"
 
-mv target/shipping-1.0.jar shipping.jar
-VALIDATE $? "moving shipping jar"
-
-mvn clean package &>> $LOGS_FILE
+cd /app
+mvn clean package  &>> $LOGS_FILE 
+mv target/shipping-1.0.jar shipping.jar 
 VALIDATE $? "installing dependencies"
 
 cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
