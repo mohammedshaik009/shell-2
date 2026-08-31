@@ -59,24 +59,24 @@ mkdir -p /app &>> $LOGS_FILE
 VALIDATE $? "creating app directory"
 
 rm -rf /tmp/shipping.zip  &>> $LOGS_FILE
-VALIDATE $? "removing shipping.zip"
+VALIDATE $? "removed shipping.zip"
 
 curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip  &>> $LOGS_FILE
 cd /app 
 unzip /tmp/shipping.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted cart code"
 
-cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
-VALIDATE $? "creating systemctl service"
-
 mvn clean package &>> $LOGS_FILE
 mv target/shipping-1.0.jar shipping.jar 
 VALIDATE $? "installing dependencies"
 
+cp $SCRIPT_DIR/shipping.service /etc/systemd/system/shipping.service
+VALIDATE $? "creating systemctl service"
+
 dnf install mysql -y &>> $LOGS_FILE
 VALIDATE $? "installing mysql client"
 
-mysql -h $MYSQL_HOST -u root -pRoboShop@1 "use cities" &>> $LOGS_FILE
+mysql -h $MYSQL_HOST -u root -pRoboShop@1 -e "use cities" &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/schema.sql
     mysql -h $MYSQL_HOST -uroot -pRoboShop@1 < /app/db/app-user.sql
