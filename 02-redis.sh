@@ -12,28 +12,28 @@ Y="\e[33m"
 N="\e[0m"
 
 USERID=$(id -u)
-#check root user or not
+#check root access or not
 if [ $USERID -ne 0 ]; then
-    echo -e "$TIMESTAMP [ERROR] $R please run this scirpt with root access $N" | tee -a $LOGS_FILE
+    echo -e "$TIMESTAMP [ERROR] $R please run this script with root access $N"  | tee -a $LOGS_FILE
     exit 1
 fi
 
 VALIDATE() {
     if [ $1 -ne 0 ]; then
-        echo -e "$TIMESTAMP [error] $2 is...$R FAILURE $N"   | tee -a $LOGS_FILE
+        echo -e "$TIMESTAMP [ERROR] $2 is ...$R FAILURE $N"  | tee -a $LOGS_FILE
         exit 1
     else
-        echo -e "$TIMESTAMP [INFO] $2 is...$G SUCCESS $N"  | tee -a $LOGS_FILE
+        echo -e "$TIMESTAMP [INFO] $2 is ...$G SUCCESS $N"   | tee -a $LOGS_FILE
     fi
 }
 
-dnf module disable redis -y &>> $LOGS_FILE
-dnf module enable redis:7 &>> $LOGS_FILE
+dnf module disable redis -y  &>> $LOGS_FILE
+dnf module enable redis:7 -y &>>  $LOGS_FILE
 dnf install redis -y &>> $LOGS_FILE
-VALIDATE $? "installing redis"
+VALIDATE $? "installing Redis:7"
 
-sed -i -e 's/127.0.0.1/0.0.0.0/' -e '/protected-mode/ c /protected-mode no' /etc/redis/redis.conf
-VALIDATE $? "Allowing remote connetions"
+sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+VALIDATE $? "Allowing remote connections"
 
-systemctl enable --now redis  &>> $LOGS_FILE
-VALIDATE $? "enable and start"
+systemctl enable --now redis &>> $LOGS_FILE
+VALIDATE $? "starting and enabling redis" 
