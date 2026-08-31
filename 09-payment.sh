@@ -36,17 +36,6 @@ if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     VALIDATE $? "setting up system user"
 else
-    echo -e "system user already created ...$Y SKIPPING $N"
-fi
-
-dnf install python3 gcc python3-devel -y  &>> $LOGS_FILE
-VALIDATE $? "installing python"
-
-id roboshop 
-if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    VALIDATE $? "setting up system user"
-else
     echo -e "system user already created ....$Y SKIPPING $N"
 fi
 
@@ -61,7 +50,7 @@ cd /app
 unzip /tmp/payment.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted code"
 
-pip3 install -r &>> $LOGS_FILE
+pip3 install -r requirements.txt &>> $LOGS_FILE
 VALIDATE $? "installing dependencies"
 
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
