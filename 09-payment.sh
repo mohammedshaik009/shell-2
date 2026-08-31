@@ -28,10 +28,10 @@ VALIDATE() {
     fi
 }
 
-dnf install python3 gcc python3-devel -y   $LOGS_FILE
+dnf install python3 gcc python3-devel -y  &>> $LOGS_FILE
 VALIDATE $? "installing python"
 
-id roboshop $LOGS_FILE
+id roboshop &>> $LOGS_FILE
 if [ $? -ne 0 ]; then
     useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
     VALIDATE $? "setting up system user"
@@ -39,7 +39,7 @@ else
     echo -e "system user already created ...$Y SKIPPING $N"
 fi
 
-dnf install python3 gcc python3-devel -y  $LOGS_FILE
+dnf install python3 gcc python3-devel -y  &>> $LOGS_FILE
 VALIDATE $? "installing python"
 
 id roboshop 
@@ -53,20 +53,20 @@ fi
 rm -rf /app
 VALIDATE $? "removing existing code"
 
-mkdir -p /app  $LOGS_FILE
+mkdir -p /app  &>> $LOGS_FILE
 VALIDATE $? "creating directory"
 
-curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  $LOGS_FILE
+curl -L -o /tmp/payment.zip https://roboshop-artifacts.s3.amazonaws.com/payment-v3.zip  &>> $LOGS_FILE
 cd /app 
 unzip /tmp/payment.zip
 VALIDATE $? "downloaded and extracted code"
 
-pip3 install $LOGS_FILE
+pip3 install &>> $LOGS_FILE
 VALIDATE $? "installing dependencies"
 
 cp $SCRIPT_DIR/payment.service /etc/systemd/system/payment.service
 VALIDATE $? "creating systemctl service"
 
-systemctl enable payment  $LOGS_FILE
-systemctl start payment  $LOGS_FILE
+systemctl enable payment  &>> $LOGS_FILE
+systemctl start payment  &>> $LOGS_FILE
 VALIDATE $? "restarting payment"
