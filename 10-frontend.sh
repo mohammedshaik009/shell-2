@@ -28,17 +28,6 @@ VALIDATE() {
     fi
 }
 
-dnf install python3 gcc python3-devel -y  &>> $LOGS_FILE
-VALIDATE $? "installing python"
-
-id roboshop &>> $LOGS_FILE
-if [ $? -ne 0 ]; then
-    useradd --system --home /app --shell /sbin/nologin --comment "roboshop system user" roboshop
-    VALIDATE $? "setting up system user"
-else
-    echo -e "system user already created ....$Y SKIPPING $N"
-fi
-
 dnf module disable nginx -y  &>> $LOGS_FILE
 dnf module enable nginx:1.24 -y  &>> $LOGS_FILE
 dnf install nginx -y  &>> $LOGS_FILE
