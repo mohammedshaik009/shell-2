@@ -61,7 +61,7 @@ VALIDATE $? "creating app directory"
 rm -rf /tmp/shipping.zip  &>> $LOGS_FILE
 VALIDATE $? "removed shipping.zip"
 
-curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip  &>> $LOGS_FILE
+curl -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping-v3.zip  &>> $LOGS_FILE
 cd /app 
 unzip /tmp/shipping.zip  &>> $LOGS_FILE
 VALIDATE $? "downloaded and extracted cart code"
